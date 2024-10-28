@@ -13,6 +13,6 @@ Este proyecto es un **Buscador de Letras de Canciones** que permite a los usuari
 
 ## Documentacion de la API que usé.
 <!-- - [Documentación de lyrics.ovh](https://lyricsovh.docs.apiary.io/#) -->
-- <a href="https://lyricsovh.docs.apiary.io/#" target="_blank">API de `lyrics.ovh`</a>Documentación de lyrics.ovh
+- <a href="https://lyricsovh.docs.apiary.io/#" target="_blank">Documentación de lyrics.ovh</a>
 
 
