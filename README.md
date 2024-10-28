@@ -11,4 +11,4 @@ Este proyecto es un **Buscador de Letras de Canciones** que permite a los usuari
 - Mensaje de carga que informa al usuario mientras se busca la letra.
 - Manejo de errores que informa al usuario sobre problemas de conexión o letras no encontradas.
 
-## Para este proyecto usé la API de `lyrics.ovh`
+**Para este proyecto usé la API de `lyrics.ovh`**
