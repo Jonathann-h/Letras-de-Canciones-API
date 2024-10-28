@@ -25,7 +25,7 @@ document.getElementById('searchButton').addEventListener('click', () => {
                     <pre>${data.lyrics}</pre>
                 `;
             } else {
-                //Mensake que se muestra si no se encontraron letras
+                //Mensaje que se muestra si no se encontraron letras
                 document.getElementById('result').innerHTML = `<p>No se encontraron letras para esta canción.</p>`;
             }
         })
