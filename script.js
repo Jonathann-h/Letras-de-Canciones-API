@@ -1,65 +1,76 @@
-document.getElementById('searchButton').addEventListener('click', handleSearch);
+const searchInput = document.getElementById("searchInput");
+const suggestionsList = document.getElementById("suggestionsList");
+const lyricsDisplay = document.getElementById("lyricsDisplay");
 
-// Función que maneja la búsqueda de letras
-async function handleSearch() {
-    // Se obtienen los valores de los campos de entrada, eliminando espacios en blanco al inicio y al final
-    const artist = document.getElementById('artist').value.trim();
-    const song = document.getElementById('song').value.trim();
+let isLoadingSuggestions = false;
+let isLoadingLyrics = false;
 
-    // Se valida que ambos campos estén llenos
-    if (!validateInputs(artist, song)) {
-        displayMessage('Ingrese el artista y el título de la canción.');
-        return;
+// Función para buscar sugerencias
+async function fetchSuggestions(keyword) {
+  if (!keyword) {
+    suggestionsList.innerHTML = '';
+    return;
+  }
+
+  isLoadingSuggestions = true;
+  try {
+    const response = await fetch(`https://api.lyrics.ovh/suggest/${keyword}`);
+    if (response.ok) {
+      const data = await response.json();
+      displaySuggestions(data.data);
+    } else {
+      showSnackbar("No se encontraron sugerencias.");
     }
+  } catch (error) {
+    showSnackbar("Ocurrió un error al obtener las sugerencias.");
+  } finally {
+    isLoadingSuggestions = false;
+  }
+}
 
-    // Se construye la URL de la API utilizando encodeURIComponent para manejar caracteres especiales
-    const url = `https://api.lyrics.ovh/v1/${encodeURIComponent(artist)}/${encodeURIComponent(song)}`;
-    
-    // Se muestra un mensaje de carga mientras se busca la letra
-    displayMessage('Buscando la letra...');
+// Función para mostrar las sugerencias
+function displaySuggestions(suggestions) {
+  suggestionsList.innerHTML = suggestions
+    .map((suggestion) => {
+      const artist = suggestion.artist.name;
+      const title = suggestion.title;
+      return `<li onclick="fetchLyrics('${artist}', '${title}')">${title} - ${artist}</li>`;
+    })
+    .join("");
+}
 
-    try {
-        //Se l}ama a la función para obtener la letra de la canción
-        const data = await fetchLyrics(url);
-        
-        // Se verifica si se encontró la letra
-        if (data.lyrics) {
-            //Se muestra la letra de la canción en el resultado
-            displayLyrics(artist, song, data.lyrics);
-        } else {
-            //Mensaje que se muestra si no se encontraron letras
-            displayMessage('No se encontraron letras para esta canción.');
-        }
-    } catch (error) {
-        //Manejo de errores: muestra un mensaje y registra el error en la consola
-        console.error('Error:', error);
-        displayMessage('Error al buscar la letra. Verifica tu conexión a internet o intenta nuevamente.');
+// Función para obtener la letra de la canción
+async function fetchLyrics(artist, title) {
+  isLoadingLyrics = true;
+  lyricsDisplay.textContent = "Cargando letra...";
+  try {
+    const response = await fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`);
+    if (response.ok) {
+      const data = await response.json();
+      lyricsDisplay.textContent = data.lyrics || "Letra no encontrada.";
+    } else {
+      showSnackbar("No se pudo encontrar la letra.");
     }
+  } catch (error) {
+    showSnackbar("Ocurrió un error al obtener la letra.");
+  } finally {
+    isLoadingLyrics = false;
+  }
 }
 
-// Esta función valida que se hayan ingresado el artista y la canción
-function validateInputs(artist, song) {
-    return artist && song; // Retorna verdadero si ambos campos tienen valor
+// Función para limpiar la búsqueda
+function clearSearch() {
+  searchInput.value = '';
+  suggestionsList.innerHTML = '';
+  lyricsDisplay.textContent = 'Selecciona una canción para ver la letra.';
 }
 
-// Función asíncrona que obtiene la letra de la canción desde la API
-async function fetchLyrics(url) {
-    const response = await fetch(url); // Realiza la solicitud a la API
-    if (!response.ok) {
-        throw new Error('Error en la respuesta de la API'); // Lanza un error si la respuesta no es correcta
-    }
-    return await response.json(); // Devuelve la respuesta en formato JSON
+// Mostrar notificación de error
+function showSnackbar(message) {
+  alert(message);
 }
 
-// Función que muestra la letra de la canción en el elemento de resultado
-function displayLyrics(artist, song, lyrics) {
-    document.getElementById('result').innerHTML = `
-        <h2>${artist} - ${song}</h2>
-        <pre>${lyrics}</pre>
-    `; // Utiliza plantillas literales para mostrar el artista, el título y la letra
-}
-
-// Función que muestra mensajes de estado en el elemento de resultado
-function displayMessage(message) {
-    document.getElementById('result').innerHTML = `<p>${message}</p>`; // Actualiza el contenido del resultado con el mensaje proporcionado
-}
+// Evento para buscar sugerencias al escribir
+searchInput.addEventListener("input", () => {
+  fetchSuggestions(searchInput.value);
+});
