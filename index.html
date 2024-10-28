@@ -7,8 +7,10 @@
 </head>
 <body>
     <h1>Buscador de Letras de Canciones</h1>
-    <input type="text" id="artist" placeholder="Artista">
-    <input type="text" id="song" placeholder="Título de la canción">
+    <input type="text" id="artist" placeholder="Artista" oninput="suggestArtists()">
+    <div id="artistSuggestions" class="suggestions"></div>
+    <input type="text" id="song" placeholder="Título de la canción" oninput="suggestSongs()">
+    <div id="songSuggestions" class="suggestions"></div>
     <button id="searchButton">Buscar</button>
     <div id="result"></div>
 
