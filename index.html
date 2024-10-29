@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buscador de Letras de Canciones</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="<https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css>">
 </head>
 <body>
   <div id="app">
-    <h2>Buscador de Letras</h2>
+    <div class="header">
+      <h1>Buscador de Letras</h1>
+    </div>
     <div class="input-container">
+      <i class="fas fa-search"></i>
       <input type="text" id="searchInput" placeholder="Buscar canción o artista">
       <button onclick="clearSearch()">✖️</button>
     </div>

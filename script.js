@@ -43,6 +43,7 @@ function displaySuggestions(suggestions) {
 async function fetchLyrics(artist, title) {
   isLoadingLyrics = true;
   lyricsDisplay.textContent = "Cargando letra...";
+  suggestionsList.innerHTML = ''; // Aca se limpia la lista de sugerencias cuando se selecciona una cancion
   try {
     const response = await fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`);
     if (response.ok) {

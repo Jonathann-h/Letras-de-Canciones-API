@@ -1,57 +1,97 @@
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  #app {
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .input-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .input-container input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .input-container button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .suggestions {
-    margin-top: 15px;
-    max-height: 200px;
-    overflow-y: auto;
-    border-top: 1px solid #ccc;
-  }
-  
-  .suggestions li {
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .suggestions li:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .lyrics {
-    margin-top: 15px;
-    white-space: pre-wrap;
-    text-align: center;
-    font-size: 16px;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f4f8;
+}
+
+#app {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.header h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  padding: 10px;
+}
+
+.input-container i {
+  color: #888;
+  margin-right: 10px;
+}
+
+.input-container input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-radius: 30px;
+  outline: none;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.input-container button {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #666;
+}
+
+.input-container button:hover {
+  color: #333;
+}
+
+.suggestions {
+  margin-top: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+  border-top: 1px solid #ccc;
+  list-style: none;
+  padding: 0;
+}
+
+.suggestions li {
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
+.lyrics {
+  margin-top: 20px;
+  white-space: pre-wrap;
+  text-align: left;
+  font-size: 16px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #fafafa;
+}
+
+.lyrics::before {
+  /*content: "🎶 ";*/
+  font-size: 24px;
+}
